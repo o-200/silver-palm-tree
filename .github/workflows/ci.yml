@@ -19,8 +19,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install error_highlight
+        run: gem install error_highlight -v '0.7.0'
+
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+        run: bundle exec bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
@@ -34,6 +37,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Install error_highlight
+        run: gem install error_highlight -v '0.7.0'
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -49,6 +55,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Install error_highlight
+        run: gem install error_highlight -v '0.7.0'
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -75,11 +84,23 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
+      - name: Install error_highlight
+        run: gem install error_highlight -v '0.7.0'
+
+      # - name: Run tests
+      #   env:
+      #     RAILS_ENV: test
+      #     # REDIS_URL: redis://localhost:6379/0
+      #   run: bin/rails db:test:prepare test test:system
+
+      - name: precompile assets
+        run: bundle exec rails assets:precompile
+
+      - name: Run rspec
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: bundle exec rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
