@@ -1,8 +1,7 @@
 # README
 
 ```
-docker build -f Dockerfile-develop -t silver-palm-tree .
-docker run -p 3000:3000 silver-palm-tree
+docker compose -f docker-compose-dev build
+docker compose -f docker-compose-dev up
 ```
-
 # silver-palm-tree
