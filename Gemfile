@@ -62,3 +62,7 @@ group :test do
 end
 
 gem "cssbundling-rails", "~> 1.4"
+
+gem "foreman", "~> 0.88.1"
+
+gem "devise", "~> 4.9"
