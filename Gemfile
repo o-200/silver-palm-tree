@@ -66,3 +66,7 @@ gem "cssbundling-rails", "~> 1.4"
 gem "foreman", "~> 0.88.1"
 
 gem "devise", "~> 4.9"
+
+# gem "pagy", "~> 9.3"
+
+gem "faker", "~> 3.5"

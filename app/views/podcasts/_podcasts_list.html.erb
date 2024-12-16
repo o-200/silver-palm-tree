@@ -1,0 +1,18 @@
+<turbo-frame id="podcasts_list">
+  <div class="row">
+    <% podcasts.each do |podcast| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9abc28136491393.61fa8bcfee8ce.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= podcast.title %></h5>
+            <p class="card-text"><%= podcast.description %></p>
+          </div>
+          <div class="card-footer">
+            <small class="text-body-secondary"><%= podcast.created_at %></small>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</turbo-frame>
