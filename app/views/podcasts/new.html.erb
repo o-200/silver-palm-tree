@@ -11,12 +11,15 @@
       <%= form.text_area :description, class: "form-control" %>
     </div>
 
-    <div>
-        <%= form.file_field :photo, direct_upload: true, data: { direct_upload_url: podcasts_path, action: "change->direct-uploads#uploadFile", direct_uploads_target: "fileInput" } %>
+    <div data-controller="upload">
+      <%= form.file_field :photo, direct_upload: true,
+                                  data: { upload_target: "input",
+                                          action:        "change->upload#uploadFile" }
+      %>
+      <div data-upload-target="progress" style="width: 100%; background-color: #f3f3f3; border: 1px solid #ccc; height: 20px; position: relative;">
+        <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4caf50; position: absolute; transition: width 0.2s;"></div>
+      </div>
     </div>
-
-    <progress id="upload-progress" value="0" max="100" data-target="direct-uploads.progress" style="display:none;"></progress>
-    <button type="button" id="cancel-upload" class="btn btn-danger" style="display:none;">Отменить загрузку</button>
 
     <%= form.submit "Создать Podcast", class: "btn btn-primary" %>
   <% end %>
