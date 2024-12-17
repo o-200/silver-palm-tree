@@ -1,21 +1,19 @@
 <turbo-frame id="podcast_frame">
-  <div class="row">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
     <% podcasts.each do |podcast| %>
-      <div class="col-md-4">
-        <%= link_to(podcast, class: "text-decoration-none", data: { turbo: false }) do %>
-          <div class="card mb-4">
-            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9abc28136491393.61fa8bcfee8ce.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= podcast.title %>
-              </h5>
-              <p class="card-text"><%= podcast.description %></p>
-            </div>
-            <div class="card-footer">
-              <small class="text-body-secondary"><%= podcast.created_at %></small>
-            </div>
+      <div class="col">
+        <div class="card mb-4 h-100">
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9abc28136491393.61fa8bcfee8ce.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to(podcast.title, podcast, class: "text-decoration-none", data: { turbo: false }) %>
+            </h5>
+            <p class="card-text"><%= podcast.description %></p>
           </div>
-        <% end %>
+          <div class="card-footer">
+            <small class="text-body-secondary"><%= podcast.created_at %></small>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
