@@ -55,6 +55,6 @@ class PodcastsController < ApplicationController
   private
 
   def podcast_params
-    params.require(:podcast).permit(:title, :description, :user_id, :photo)
+    params.require(:podcast).permit(:title, :description, :user_id, :photo, :audio)
   end
 end

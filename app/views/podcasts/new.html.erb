@@ -12,7 +12,19 @@
     </div>
 
     <div data-controller="upload">
+      <%= form.label :photo, "Обложка" %>
       <%= form.file_field :photo, direct_upload: true,
+                                  data: { upload_target: "input",
+                                          action:        "change->upload#uploadFile" }
+      %>
+      <div data-upload-target="progress" style="width: 100%; background-color: #f3f3f3; border: 1px solid #ccc; height: 20px; position: relative;">
+        <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4caf50; position: absolute; transition: width 0.2s;"></div>
+      </div>
+    </div>
+
+    <div data-controller="upload">
+      <%= form.label :audio, "Аудиофайл" %>
+      <%= form.file_field :audio, direct_upload: true,
                                   data: { upload_target: "input",
                                           action:        "change->upload#uploadFile" }
       %>
