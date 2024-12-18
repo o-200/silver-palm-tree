@@ -17,8 +17,9 @@
                                   data: { upload_target: "input",
                                           action:        "change->upload#uploadFile" }
       %>
-      <div data-upload-target="progress" style="width: 100%; background-color: #f3f3f3; border: 1px solid #ccc; height: 20px; position: relative;">
-        <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4caf50; position: absolute; transition: width 0.2s;"></div>
+
+      <div class="progress" data-upload-target="progress">
+        <div class="progress-bar bg-success" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
 
@@ -28,8 +29,8 @@
                                   data: { upload_target: "input",
                                           action:        "change->upload#uploadFile" }
       %>
-      <div data-upload-target="progress" style="width: 100%; background-color: #f3f3f3; border: 1px solid #ccc; height: 20px; position: relative;">
-        <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4caf50; position: absolute; transition: width 0.2s;"></div>
+      <div class="progress" data-upload-target="progress">
+        <div class="progress-bar bg-success" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
 
