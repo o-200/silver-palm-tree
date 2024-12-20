@@ -6,7 +6,9 @@
           <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9abc28136491393.61fa8bcfee8ce.png" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">
-              <%= link_to(podcast.title, podcast, class: "text-decoration-none", data: { turbo: false }) %>
+              <%= link_to podcast.title, podcast,
+                  class: "text-decoration-none",
+                  data: { turbo_frame: 'podcasts_list' } %>
             </h5>
             <p class="card-text"><%= podcast.description %></p>
           </div>

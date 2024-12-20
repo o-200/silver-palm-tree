@@ -4,13 +4,15 @@ class PodcastsController < ApplicationController
     @last_podcast = Podcast.last
   end
 
-  def load_podcasts
-    @podcasts = Podcast.take(4)
-    render partial: "podcasts_list", locals: { podcasts: @podcasts }, layout: false
+  def load_list
+    podcasts = get_podcasts
+
+    render partial: "podcasts_list", locals: { podcasts: podcasts }
   end
 
   def show
     @podcast = Podcast.find_by(id: params[:id])
+    render partial: "show", locals: { podcast: @podcast }
   end
 
   def new
@@ -18,12 +20,12 @@ class PodcastsController < ApplicationController
   end
 
   def create
-    @podcast = Podcast.new(podcast_params)
+    @podcast = current_user.podcasts.build(podcast_params)
 
     if @podcast.save
       redirect_to @podcast
     else
-      render :new
+      render :new, notice: @podcast.errors.full_messages
     end
   end
 
@@ -53,6 +55,14 @@ class PodcastsController < ApplicationController
   end
 
   private
+
+  def get_podcasts
+    if current_user
+      return current_user.podcasts if params[:filter] == 'my_podcasts'
+    end
+
+    Podcast.take(12)
+  end
 
   def podcast_params
     params.require(:podcast).permit(:title, :description, :user_id, :photo, :audio)

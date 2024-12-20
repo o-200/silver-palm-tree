@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "podcasts#index"
-  post "load_podcasts", to: "podcasts#load_podcasts"
+  get "load_podcasts", to: "podcasts#load_list"
 
   resources :podcasts
 end
