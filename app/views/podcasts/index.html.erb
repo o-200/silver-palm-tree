@@ -6,7 +6,11 @@
           <div class="card">
             <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9abc28136491393.61fa8bcfee8ce.png" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title"><%= link_to @last_podcast.title, @last_podcast, class: "text-decoration-none", data: { turbo: false } %></h5>
+              <h5 class="card-title">
+                <%= link_to @last_podcast.title, @last_podcast,
+                  class: "text-decoration-none",
+                  data: { turbo_frame: 'podcasts_list' } %>
+              </h5>
               <p class="card-text" style="max-width: 200px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7;"><%= @last_podcast.description %></p>
             </div>
             <div class="card-footer">
@@ -16,7 +20,11 @@
           <div class="card">
             <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c4c965136491393.6336af6811b4b.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title"><%= link_to @random_podcast.title, @random_podcast, class: "text-decoration-none", data: { turbo: false } %></h5>
+              <h5 class="card-title">
+                <%= link_to @random_podcast.title, @random_podcast,
+                  class: "text-decoration-none",
+                  data: { turbo_frame: 'podcasts_list' } %>
+                </h5>
               <p class="card-text" style="max-width: 200px; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7;"><%= @random_podcast.description %></p>
             </div>
             <div class="card-footer">

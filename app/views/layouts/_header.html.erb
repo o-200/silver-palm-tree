@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
   <div class="container-fluid">
-    <%= link_to content_for(:title) || "Podcaster", root_path, class: 'navbar-brand' %>
+    <%= link_to content_for(:title) || "Podcaster", root_path, class: 'navbar-brand', data: { turbo_frame: 'podcast_frame' } %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,7 +37,7 @@
               <li>
                 <%= link_to "My podcasts", load_podcasts_path(filter: 'my_podcasts'),
                   class: "dropdown-item btn btn-outline-success",
-                  data: { turbo_frame: 'podcasts_list' } %>
+                  data: { turbo_frame: 'podcast_frame' } %>
               </li>
               <li><%= link_to "Add new podcast", new_podcast_path, class: 'dropdown-item btn btn-outline-success' %></li>
               <li><hr class="dropdown-divider"></li>
