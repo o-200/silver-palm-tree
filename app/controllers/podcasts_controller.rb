@@ -58,7 +58,7 @@ class PodcastsController < ApplicationController
 
   def get_podcasts
     if current_user
-      return current_user.podcasts if params[:filter] == 'my_podcasts'
+      return current_user.podcasts if params[:filter] == "my_podcasts"
     end
 
     Podcast.take(12)
