@@ -39,7 +39,7 @@
                   class: "dropdown-item btn btn-outline-success",
                   data: { turbo_frame: 'podcast_frame' } %>
               </li>
-              <li><%= link_to "Add new podcast", new_podcast_path, class: 'dropdown-item btn btn-outline-success' %></li>
+              <li><%= link_to "Add new podcast", new_podcast_path, class: 'dropdown-item btn btn-outline-success', data: { turbo_frame: 'podcast_frame' } %></li>
               <li><hr class="dropdown-divider"></li>
               <li><%= button_to "Sign Out", destroy_user_session_path, class: 'dropdown-item btn btn-outline-danger', method: :delete %></li>
             </ul>
