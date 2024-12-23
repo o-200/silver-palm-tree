@@ -1,0 +1,45 @@
+<%= form_with(model: @podcast, local: true, data: { controller: "direct-uploads", url: podcasts_path }) do |form| %>
+  <div class="mb-3 form-group">
+    <%= form.label :title, "Название Podcast", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 form-group">
+    <%= form.label :description, "Описание Podcast", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 form-group" data-controller="upload">
+    <%= form.label :photo, "Обложка", class: "form-label" %>
+    <div class="input-group">
+        <%= form.file_field :photo, direct_upload: true,
+                                    data: { upload_target: "input",
+                                            action:        "change->upload#uploadFile" },
+                                    class: "form-control"
+        %>
+    </div>
+
+    <div class="progress mt-2" data-upload-target="progress">
+        <div class="progress-bar bg-success" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </div>
+
+
+  <div class="mb-3 form-group" data-controller="upload">
+    <%= form.label :audio, "Аудиофайл", class: "form-label" %>
+    <div class="input-group">
+        <%= form.file_field :audio, direct_upload: true,
+                                    data: { upload_target: "input",
+                                            action:        "change->upload#uploadFile" },
+                                    class: "form-control"
+        %>
+    </div>
+
+    <div class="progress mt-2" data-upload-target="progress">
+        <div class="progress-bar bg-success" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </div>
+
+
+  <%= form.submit "Submit Podcast", class: "btn btn-primary mb-3" %>
+<% end %>
