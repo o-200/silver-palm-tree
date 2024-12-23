@@ -1,34 +1,36 @@
-<div class="d-flex">
-  <div class="px-2">
-    <div class="card d-flex flex-column mb-3">
-      <% if @podcast.photo.attached? %>
-        <%= image_tag @podcast.photo, height: 500 %>
-      <% else %>
-        <div class="alert alert-warning" role="alert">No Photo Available!</div>
-      <% end %>
+<turbo-frame id="podcast_frame">
+  <div class="d-flex">
+    <div class="px-2">
+      <div class="card d-flex flex-column mb-3">
+        <% if @podcast.photo.attached? %>
+          <%= image_tag @podcast.photo, height: 500 %>
+        <% else %>
+          <div class="alert alert-warning" role="alert">No Photo Available!</div>
+        <% end %>
 
-      <% if @podcast.audio.attached? %>
-        <%= audio_tag @podcast.audio, controls: true %>
-      <% else %>
-        <div class="alert alert-warning" role="alert">No Audio Available!</div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="p-2 card flex-fill d-flex flex-column mb-3">
-    <div class="card-body">
-      <h5 class="card-title fs-1 display-1"><%= @podcast.title %></h5>
-      <h6 class="card-subtitle mb-2 text-body-secondary fs-6"><%= @podcast.created_at %></h6>
-      <p class="card-text fs-5 display-2"><%= @podcast.description %></p>
-    </div>
-      <div class="card-footer bg-transparent border-success">
-        <a href="#" class="card-link fs-6">Card link</a>
-        <a href="#" class="card-link fs-6">Another link</a>
+        <% if @podcast.audio.attached? %>
+          <%= audio_tag @podcast.audio, controls: true %>
+        <% else %>
+          <div class="alert alert-warning" role="alert">No Audio Available!</div>
+        <% end %>
       </div>
-  </div>
-</div>
+    </div>
 
-<div class="d-flex flex-column mb-3">
-  <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast), class: "btn btn-secondary mb-2" %>
-  <%= link_to "Удалить Podcast", podcast_path(@podcast), method: :delete, data: { confirm: "Вы уверены?" }, class: "btn btn-danger mb-2" %>
-</div>
+    <div class="p-2 card flex-fill d-flex flex-column mb-3">
+      <div class="card-body">
+        <h5 class="card-title fs-1 display-1"><%= @podcast.title %></h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary fs-6"><%= @podcast.created_at %></h6>
+        <p class="card-text fs-5 display-2"><%= @podcast.description %></p>
+      </div>
+        <div class="card-footer bg-transparent border-success">
+          <a href="#" class="card-link fs-6">Card link</a>
+          <a href="#" class="card-link fs-6">Another link</a>
+        </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column mb-3">
+    <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast), class: "btn btn-secondary mb-2" %>
+    <%= button_to "Удалить Podcast", podcast_path(@podcast), method: :delete, data: { confirm: "Вы уверены?" }, class: "btn btn-danger mb-2" %>
+  </div>
+</turbo_frame>
