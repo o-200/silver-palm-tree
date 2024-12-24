@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Home Page", type: :feature do
   before do
-    user = User.create!(email: "email@gmail.com", password: 'testpassword')
-    Podcast.create!(user: user)
+    10.times { FactoryBot.create(:podcast) }
   end
 
   context "User see" do
