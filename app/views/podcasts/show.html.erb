@@ -2,17 +2,20 @@
   <div class="d-flex">
     <div class="px-2">
       <div class="card d-flex flex-column mb-3">
-        <% if @podcast.photo.attached? %>
-          <%= image_tag @podcast.photo, height: 500 %>
-        <% else %>
-          <div class="alert alert-warning" role="alert">No Photo Available!</div>
-        <% end %>
-
-        <% if @podcast.audio.attached? %>
-          <%= audio_tag @podcast.audio, controls: true %>
-        <% else %>
-          <div class="alert alert-warning" role="alert">No Audio Available!</div>
-        <% end %>
+        <div class="photo">
+          <% if @podcast.photo.attached? %>
+            <%= image_tag @podcast.photo, height: 500 %>
+          <% else %>
+            <div class="alert alert-warning" role="alert">No Photo Available!</div>
+          <% end %>
+        </div>
+        <div class="audio">
+          <% if @podcast.audio.attached? %>
+            <%= audio_tag @podcast.audio, controls: true %>
+          <% else %>
+            <div class="alert alert-warning" role="alert">No Audio Available!</div>
+          <% end %>
+        </div>
       </div>
     </div>
 
@@ -29,8 +32,10 @@
     </div>
   </div>
 
-  <div class="d-flex flex-column mb-3">
-    <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast), class: "btn btn-secondary mb-2" %>
-    <%= button_to "Удалить Podcast", podcast_path(@podcast), method: :delete, data: { confirm: "Вы уверены?" }, class: "btn btn-danger mb-2" %>
+  <div class="control-buttons">
+    <div class="d-flex flex-column mb-3">
+      <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast), class: "btn btn-secondary mb-2" %>
+      <%= button_to "Удалить Podcast", podcast_path(@podcast), method: :delete, data: { confirm: "Вы уверены?" }, class: "btn btn-danger mb-2" %>
+    </div>
   </div>
 </turbo_frame>
