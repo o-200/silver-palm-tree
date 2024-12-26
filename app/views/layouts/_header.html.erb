@@ -48,10 +48,16 @@
       <% else %>
         <div class="row justify-content-evenly">
           <div class="col-4">
-            <%= link_to "register", new_user_registration_path, class: 'btn btn-outline-success' %>
+            <%= link_to "register", new_user_registration_path,
+                class: 'btn btn-outline-success',
+                data: { turbo_frame: 'podcast_frame' }
+            %>
           </div>
           <div class="col-4">
-            <%= link_to "login", new_user_session_path, class: 'btn btn-outline-primary' %>
+            <%= link_to "login", new_user_session_path,
+                class: 'btn btn-outline-primary',
+                data: { turbo_frame: 'podcast_frame' }
+            %>
           </div>
         </div>
       <% end %>
