@@ -9,12 +9,12 @@
 #   end
 
 Podcast.destroy_all
+User.destroy_all
 
-10.times do |time|
-  Podcast.create!(
-    title:       Faker::Movie.title,
-    description: Faker::Movie.quote
-  )
+puts 'destroyed all records'
+
+10.times do
+  FactoryBot.create(:podcast)
 end
 
 puts 'done!'

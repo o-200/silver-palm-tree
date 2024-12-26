@@ -1,10 +1,7 @@
 class PodcastsController < ApplicationController
-  def index
-    @random_podcast = Podcast.offset(rand(Podcast.count)).first # TODO: use cron
-    @last_podcast = Podcast.last
-  end
+  # before_action :authenticate_user!, only: %i[update, destroy]
 
-  def load_list
+  def index
     podcasts = get_podcasts
     render partial: "podcasts_list", locals: { podcasts: podcasts }
   end
@@ -37,14 +34,14 @@ class PodcastsController < ApplicationController
     if @podcast.update(podcast_params)
       render :show, locals: { podcast: @podcast }
     else
-      render :edit
+      render :edit, notice: @podcast.errors.full_messages
     end
   end
 
   def destroy
-    @podcast = Podcast.find(params[:id])
+    podcast = current_user.podcasts.find(params[:id])
 
-    if @podcast.destroy
+    if current_user.podcast.destroy
       redirect_to root_path
     else
       flash[:error] = @podcast.errors.full_messages
@@ -63,6 +60,6 @@ class PodcastsController < ApplicationController
   end
 
   def podcast_params
-    params.require(:podcast).permit(:title, :description, :user_id, :photo, :audio)
+    params.require(:podcast).permit(:title, :description, :photo, :audio)
   end
 end

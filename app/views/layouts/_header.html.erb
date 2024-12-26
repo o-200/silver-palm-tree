@@ -35,7 +35,7 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to "My podcasts", load_podcasts_path(filter: 'my_podcasts'),
+                <%= link_to "My podcasts", podcasts_path(filter: 'my_podcasts'),
                   class: "dropdown-item btn btn-outline-success",
                   data: { turbo_frame: 'podcast_frame' } %>
               </li>
