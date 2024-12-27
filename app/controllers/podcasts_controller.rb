@@ -17,10 +17,24 @@ class PodcastsController < ApplicationController
   def create
     @podcast = current_user.podcasts.build(podcast_params)
 
-    if @podcast.save
-      render :show, locals: { podcast: @podcast }
-    else
-      render :new, notice: @podcast.errors.full_messages
+    respond_to do |format|
+      if @podcast.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
+            turbo_stream.update("notice", "Your podcast was successfully created.")
+          ]
+        end
+        format.html { redirect_to @podcast, notice: "Your podcast was successfully created." }
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("form", partial: "podcasts/form", locals: { podcast: @podcast }),
+            turbo_stream.replace("alert", partial: "layouts/alert", locals: { resource: @podcast })
+          ]
+        end
+        format.html { render :new }
+      end
     end
   end
 

@@ -1,7 +1,19 @@
+<!-- TODO: переименовать в _errors.html.erb, тут использовать
 <% if notice %>
   <p class="alert alert-info"><%= notice %></p>
 <% end %>
 <% if alert %>
   <p class="alert alert-warning"><%= alert %></p>
 <% end %>
-  
+и запихнуть это в application.html.erb
+-->
+<% if resource.present? && resource.errors.any? %>
+  <div class="alert alert-danger">
+    <%= "#{resource.errors.count} error(s) detected:" %>
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
