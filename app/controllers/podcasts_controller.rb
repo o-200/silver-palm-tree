@@ -43,12 +43,27 @@ class PodcastsController < ApplicationController
   end
 
   def update
-    @podcast = Podcast.find(params[:id])
+    @podcast = Podcast.find_by(id: params[:id])
+    # @podcast = current_user.podcasts.find_by(id: params[:id]) TODO: исправить на это когда будет auth
 
-    if @podcast.update(podcast_params)
-      render :show, locals: { podcast: @podcast }
-    else
-      render :edit, notice: @podcast.errors.full_messages
+    respond_to do |format|
+      if @podcast.update(podcast_params)
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
+            turbo_stream.update("notice", "Your podcast was successfully updated.")
+          ]
+        end
+        format.html { redirect_to @podcast, notice: "Your podcast was successfully updated." }
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("form", partial: "podcasts/form", locals: { podcast: @podcast }),
+            turbo_stream.replace("alert", partial: "layouts/alert", locals: { resource: @podcast })
+          ]
+        end
+        format.html { render :new }
+      end
     end
   end
 

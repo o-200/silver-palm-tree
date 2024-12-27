@@ -29,15 +29,22 @@ RSpec.feature "Podcasts#edit", type: :feature do
   end
 
   # context 'user updates the podcast' do
-  # scenario "successfully updates the podcast title and description" do
-  #   fill_in 'podcast[title]', with: "Updated Podcast Title"
-  #   fill_in 'podcast[description]', with: "Updated description."
-  #   click_button 'Submit Podcast'
+  scenario "successfully updates the podcast title and description" do
+    fill_in 'podcast[title]', with: "Updated Podcast Title"
+    fill_in 'podcast[description]', with: "Updated description."
+    click_button 'Submit Podcast'
 
-  #   expect(page).to have_content("Podcast was successfully updated.")
-  #   expect(page).to have_content("Updated Podcast Title")
-  #   expect(page).to have_content("Updated description.")
-  # end
+    # expect(page).to have_content("Podcast was successfully updated.")
+    expect(page).to have_content("Updated Podcast Title")
+    expect(page).to have_content("Updated description.")
+  end
+
+  scenario "see error" do
+    fill_in 'podcast[title]', with: '1'
+    click_button 'Submit Podcast'
+
+    expect(page).to have_content("Title is too short (minimum is 2 characters)")
+  end
 
   #   scenario "uploads a new photo" do
   #     attach_file('podcast[photo]', Rails.root.join('spec/fixtures/files/sample_image.png'))
@@ -58,10 +65,10 @@ RSpec.feature "Podcasts#edit", type: :feature do
   #   end
   # end
 
-  # context 'user navigates back' do
-  #   scenario "returns to the podcast show page" do
-  #     click_link "Назад"
-  #     expect(current_path).to eq(podcast_path(podcast))
-  #   end
-  # end
+  context 'user navigates back' do
+    scenario "returns to the podcast show page" do
+      click_link "Назад"
+      expect(current_path).to eq(podcast_path(podcast))
+    end
+  end
 end
