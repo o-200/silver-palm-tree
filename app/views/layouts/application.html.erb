@@ -20,7 +20,9 @@
   <body>
     <%= turbo_frame_tag "main" do %>
       <div class="container">
-        <%= render "layouts/header" %>
+        <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+          <%= render "layouts/navbar" %>
+        </nav>
 
         <div id="flash" class="flash">
           <%= render "layouts/flash" %>
