@@ -26,7 +26,7 @@ RSpec.feature "Podcasts#edit", type: :feature do
       click_button 'Submit Podcast'
 
       expect(current_path).to eq(podcast_path(Podcast.last))
-      # expect(page).to have_content("Your podcast was successfully created.")
+      expect(page).to have_content("Your podcast was successfully created.")
       expect(page).to have_content(podcast.title)
       expect(page).to have_content(podcast.description)
     end

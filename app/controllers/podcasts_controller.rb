@@ -19,13 +19,14 @@ class PodcastsController < ApplicationController
 
     respond_to do |format|
       if @podcast.save
+        flash[:notice] = "Your podcast was successfully created."
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
-            turbo_stream.update("notice", "Your podcast was successfully created.")
+            turbo_stream.append("flash", partial: "layouts/flash", locals: { message: notice })
           ]
         end
-        format.html { redirect_to @podcast, notice: "Your podcast was successfully created." }
+        format.html { redirect_to @podcast, notice: notice }
       else
         format.turbo_stream do
           render turbo_stream: [
@@ -48,10 +49,11 @@ class PodcastsController < ApplicationController
 
     respond_to do |format|
       if @podcast.update(podcast_params)
+        flash[:notice] = "Your podcast was successfully updated."
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
-            turbo_stream.update("notice", "Your podcast was successfully updated.")
+            turbo_stream.append("flash", partial: "layouts/flash", locals: { message: notice })
           ]
         end
         format.html { redirect_to @podcast, notice: "Your podcast was successfully updated." }

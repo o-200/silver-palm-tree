@@ -22,12 +22,9 @@
       <div class="container">
         <%= render "layouts/header" %>
 
-        <% if notice %>
-          <p class="alert alert-info"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-          <p class="alert alert-warning"><%= alert %></p>
-        <% end %>
+        <div id="flash" class="flash">
+          <%= render "layouts/flash" %>
+        </div>
 
         <div class="mb-3">
           <%= yield %>

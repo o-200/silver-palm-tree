@@ -14,7 +14,7 @@ RSpec.feature "Podcasts#edit", type: :feature do
     scenario "the current podcast details in the form" do
       expect(page).to have_content("Редактировать Podcast: #{podcast.title}")
 
-      expect(find_field('podcast[title]').value).to eq(podcast.title)
+      expect(find_field('podcast[title]').value).to       eq(podcast.title)
       expect(find_field('podcast[description]').value).to eq(podcast.description)
     end
 
@@ -30,13 +30,16 @@ RSpec.feature "Podcasts#edit", type: :feature do
 
   # context 'user updates the podcast' do
   scenario "successfully updates the podcast title and description" do
-    fill_in 'podcast[title]', with: "Updated Podcast Title"
-    fill_in 'podcast[description]', with: "Updated description."
+    title = "Updated Podcast Title"
+    description = "Updated description."
+
+    fill_in 'podcast[title]',       with: title
+    fill_in 'podcast[description]', with: description
     click_button 'Submit Podcast'
 
-    # expect(page).to have_content("Podcast was successfully updated.")
-    expect(page).to have_content("Updated Podcast Title")
-    expect(page).to have_content("Updated description.")
+    expect(page).to have_content("Your podcast was successfully updated.")
+    expect(page).to have_content(title)
+    expect(page).to have_content(description)
   end
 
   scenario "see error" do
