@@ -12,7 +12,6 @@ gem "jbuilder"
 gem "cssbundling-rails", "~> 1.4"
 
 gem "foreman", "~> 0.88.1"
-gem "devise", "~> 4.9"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

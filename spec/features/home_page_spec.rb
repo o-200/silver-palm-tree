@@ -30,23 +30,23 @@ RSpec.feature "Home Page", type: :feature do
         }
       end
 
-      context "signed in" do
-        let(:current_user) { create(:user) }
+      # context "signed in" do
+      #   let(:current_user) { create(:user) }
 
-        before do
-          sign_in current_user
-          visit root_path
-        end
+      #   before do
+      #     sign_in current_user
+      #     visit root_path
+      #   end
 
-        scenario "check for navbar-menu" do
-          expect(page).to have_button('Menu')
-          within('.dropdown-menu') do
-            expect(page).to have_link('My podcasts',     href: podcasts_path(filter: 'my_podcasts'))
-            expect(page).to have_link('Add new podcast', href: new_podcast_path)
-            expect(page).to have_button('Sign Out')
-          end
-        end
-      end
+      #   scenario "check for navbar-menu" do
+      #     expect(page).to have_button('Menu')
+      #     within('.dropdown-menu') do
+      #       expect(page).to have_link('My podcasts',     href: podcasts_path(filter: 'my_podcasts'))
+      #       expect(page).to have_link('Add new podcast', href: new_podcast_path)
+      #       expect(page).to have_button('Sign Out')
+      #     end
+      #   end
+      # end
     end
 
     context "container" do

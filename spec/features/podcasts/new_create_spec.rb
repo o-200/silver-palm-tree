@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "Podcasts#edit", type: :feature do
-  let(:user)    { FactoryBot.create(:user)   }
   let(:podcast) { FactoryBot.build(:podcast) }
 
   before do
-    sign_in user
     visit new_podcast_path
   end
 

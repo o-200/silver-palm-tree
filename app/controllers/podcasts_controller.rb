@@ -1,6 +1,4 @@
 class PodcastsController < ApplicationController
-  # before_action :authenticate_user!, only: %i[update, destroy]
-
   def index
     podcasts = get_podcasts
     render partial: "podcasts_list", locals: { podcasts: podcasts }
@@ -15,7 +13,7 @@ class PodcastsController < ApplicationController
   end
 
   def create
-    @podcast = current_user.podcasts.build(podcast_params)
+    @podcast = Podcast.build(podcast_params)
 
     respond_to do |format|
       if @podcast.save
@@ -45,7 +43,6 @@ class PodcastsController < ApplicationController
 
   def update
     @podcast = Podcast.find_by(id: params[:id])
-    # @podcast = current_user.podcasts.find_by(id: params[:id]) TODO: исправить на это когда будет auth
 
     respond_to do |format|
       if @podcast.update(podcast_params)
@@ -70,7 +67,7 @@ class PodcastsController < ApplicationController
   end
 
   def destroy
-    podcast = current_user.podcasts.find(params[:id])
+    podcast = Podcast.find_by(id: params[:id])
 
     if current_user.podcast.destroy
       redirect_to root_path
@@ -83,9 +80,9 @@ class PodcastsController < ApplicationController
   private
 
   def get_podcasts
-    if current_user
-      return current_user.podcasts if params[:filter] == "my_podcasts"
-    end
+    # if current_user
+    #   return current_user.podcasts if params[:filter] == "my_podcasts"
+    # end
 
     Podcast.all
   end
