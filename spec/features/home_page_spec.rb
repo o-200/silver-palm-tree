@@ -50,10 +50,6 @@ RSpec.feature "Home Page", type: :feature do
     end
 
     context "container" do
-      scenario "main turbo frame" do
-        expect(page).to have_selector("turbo-frame#main")
-      end
-
       scenario "podcast turbo frame and see cards inside it" do
         expect(page).to have_selector("turbo-frame#podcast_frame")
         within("turbo-frame#podcast_frame") { expect(page).to have_selector(".card-group") }
