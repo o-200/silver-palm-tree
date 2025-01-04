@@ -1,4 +1,6 @@
 class PodcastsController < ApplicationController
+  allow_unauthenticated_access
+
   def index
     podcasts = get_podcasts
     render partial: "podcasts_list", locals: { podcasts: podcasts }

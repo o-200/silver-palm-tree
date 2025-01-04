@@ -1,0 +1,27 @@
+<%= turbo_frame_tag "podcast_frame" do %>
+  <div class="d-flex justify-content-center" style="margin-top: 20px;">
+    <div class="col-md-4">
+      <%= form_with model: @user, url: users_path do |form| %>
+        <div class="mb-3 form-group">
+          <%= form.label :email_address, "Email Address", class: "form-label" %>
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params.dig(:user, :email_address), class: "form-control" %>
+        </div>
+
+        <div class="mb-3 form-group">
+          <%= form.label :password, "Password", class: "form-label" %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "form-control" %>
+        </div>
+
+        <div class="mb-3 form-group">
+          <%= form.label :password_confirmation, "Confirm Password", class: "form-label" %>
+          <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Confirm your password", maxlength: 72, class: "form-control" %>
+        </div>
+
+        <%= form.submit "Sign up", class: "btn btn-primary mb-3" %>
+      <% end %>
+      <br>
+
+      <%= link_to "Sign In", new_session_path, class: "btn btn-link" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<%= form_with(url: session_path, data: { turbo: true }, local: true) do |form| %>
+  <div class="mb-3 form-group">
+    <%= form.label :email_address, "Email Address", class: "form-label" %>
+    <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", class: "form-control" %>
+  </div>
+
+  <div class="mb-3 form-group">
+    <%= form.label :password, "Password", class: "form-label" %>
+    <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Sign in", class: "btn btn-primary mb-3" %>
+<% end %>
