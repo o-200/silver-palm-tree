@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Podcasts#edit", type: :feature do
   let(:podcast) do
-    FactoryBot.create(:podcast, title: Faker::ProgrammingLanguage.name,
+    FactoryBot.create(:podcast, title: Faker::Alphanumeric.alpha(number: 10),
                                 description: Faker::Markdown.emphasis)
   end
 
