@@ -1,15 +1,19 @@
 <%= turbo_frame_tag "podcast_frame" do %>
-  <turbo_frame id="errors">
-    <%= render 'layouts/errors', resource: @session || nil %>
-  </turbo_frame>
-
   <div class="d-flex justify-content-center" style="margin-top: 20px;">
-    <div class="col-md-4">
-      <%= render 'form' %>
-      <br>
+    <div class="card card-auth equal-height" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title text-center">Sign in</h5>
+        <hr>
 
-      <%= link_to "Sign Up", new_user_path, class: "btn btn-link" %>
-      <%= link_to "Forgot password?", new_password_path, class: "btn btn-link" %>
+        <%= turbo_frame_tag "errors", class: "card-img-top", id: "errors" do %>
+          <%= render 'layouts/errors', resource: @session || nil %>
+        <% end %>
+
+        <%= render 'form' %>
+
+        <%= link_to "Sign Up", new_user_path, class: "btn btn-link" %>
+        <%= link_to "Forgot password?", new_password_path, class: "btn btn-link" %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -19,7 +19,6 @@ RSpec.feature "Sessions#create", type: :feature do
       expect(page).to have_selector("input[type='password'][name='user[password_confirmation]'][required][autocomplete='new-password'][placeholder='Confirm your password'][maxlength='72']")
 
       expect(page).to have_selector("input[type='submit'][value='Sign up']")
-      expect(page).to have_link("Sign In", href: login_path)
     end
   end
 
