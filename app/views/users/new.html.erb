@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "podcast_frame" do %>
+  <div class="d-flex justify-content-center" style="margin-top: 20px;">
+    <div class="card card-auth equal-height" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title text-center">Sign Up</h5>
+        <hr>
+
+        <%= turbo_frame_tag "errors", class: "card-img-top", id: "errors" do %>
+          <%= render 'layouts/errors', resource: @session || nil %>
+        <% end %>
+
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+<% end %>
