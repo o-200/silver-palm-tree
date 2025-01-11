@@ -11,21 +11,21 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         start_new_session_for @user
-        notice_msg = "Your account successfully created!"
+        notice = "Your account successfully created!"
 
         format.turbo_stream do
-          flash[:notice] = notice_msg
+          flash[:notice] = notice
           render turbo_stream: turbo_stream.action(:redirect, after_authentication_url)
         end
-        format.html { redirect_to after_authentication_url, notice: notice_msg }
+        format.html { redirect_to after_authentication_url, notice: notice }
       else
-        notice_msg = @user.errors.full_messages.to_sentence
+        alert = @user.errors.full_messages.to_sentence
 
         format.turbo_stream do
-          flash[:notice] = notice_msg
+          flash[:alert] = alert
           render turbo_stream: turbo_stream.action(:redirect, new_user_url)
         end
-        format.html { redirect_to new_user_url, notice: notice_msg }
+        format.html { redirect_to new_user_url, notice: alert }
       end
     end
   end

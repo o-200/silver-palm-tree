@@ -9,22 +9,22 @@ class SessionsController < ApplicationController
     respond_to do |format|
       if user = User.authenticate_by(params.permit(:email_address, :password))
         start_new_session_for user
-        notice_msg = "Successfully sign in!"
+        notice = "Successfully sign in!"
 
         format.turbo_stream do
-          flash.now[:notice] = notice_msg
+          flash[:notice] = notice
           render turbo_stream: turbo_stream.action(:redirect, root_path)
         end
 
-        format.html { redirect_to root_path, notice: notice_msg }
+        format.html { redirect_to root_path, notice: notice }
       else
-        notice_msg = "Wrong email or password"
+        notice = "Wrong email or password"
 
         format.turbo_stream do
-          flash[:notice] = notice_msg
+          flash[:notice] = notice
           render turbo_stream: turbo_stream.action(:redirect, login_path)
         end
-        format.html { redirect_to login_path, notice: notice_msg }
+        format.html { redirect_to login_path, notice: notice }
       end
     end
   end
@@ -33,14 +33,14 @@ class SessionsController < ApplicationController
     terminate_session
 
     respond_to do |format|
-      notice_msg = "Successfully sign out!"
+      notice = "Successfully sign out!"
 
       format.turbo_stream do
-        flash.now[:notice] = notice_msg
+        flash[:notice] = notice
         render turbo_stream: turbo_stream.action(:redirect, root_path)
       end
 
-      format.html { redirect_to root_path, notice: notice_msg }
+      format.html { redirect_to root_path, notice: notice }
     end
   end
 end

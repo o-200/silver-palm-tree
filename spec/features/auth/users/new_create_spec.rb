@@ -7,7 +7,7 @@ RSpec.feature "Sessions#create", type: :feature do
     visit register_path
   end
 
-  scenario "User sees the sign in form with email and password fields" do
+  scenario "User sees the sign up form" do
     within "turbo-frame#podcast_frame" do
       expect(page).to have_selector("label[for='user_email_address']", text: "Email Address")
       expect(page).to have_selector("input[type='email'][name='user[email_address]'][required][autofocus][autocomplete='username'][placeholder='Enter your email address']")
@@ -25,8 +25,8 @@ RSpec.feature "Sessions#create", type: :feature do
 
   scenario "User successfull sign up" do
     within "turbo-frame#podcast_frame" do
-      fill_in "user[email_address]", with: user_params[:email_address]
-      fill_in "user[password]", with: user_params[:password]
+      fill_in "user[email_address]",         with: user_params[:email_address]
+      fill_in "user[password]",              with: user_params[:password]
       fill_in "user[password_confirmation]", with: user_params[:password]
 
       click_button "Sign up"

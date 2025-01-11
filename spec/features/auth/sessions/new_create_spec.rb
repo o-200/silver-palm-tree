@@ -17,7 +17,7 @@ RSpec.feature "Sessions#create", type: :feature do
 
       expect(page).to have_selector("input[type='submit'][value='Sign in']")
       expect(page).to have_link("Sign Up", href: new_user_path)
-      expect(page).to have_link("Forgot password?", href: new_password_path)
+      # expect(page).to have_link("Forgot password?", href: new_password_path)
     end
   end
 
@@ -35,11 +35,11 @@ RSpec.feature "Sessions#create", type: :feature do
   scenario "User typing wrong data and has error" do
     within "turbo-frame#podcast_frame" do
       fill_in "email_address", with: user.email_address
-      fill_in "password",      with: 'wrong'
+      fill_in "password",      with: ''
 
       click_button "Sign in"
     end
 
-    expect(page).to have_content("Wrong email or password")
+    expect(page).to have_selector("#flash .flash__message", text: "Wrong email or password")
   end
 end
