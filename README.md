@@ -1,7 +1,10 @@
 # README
 
-```
-docker compose -f docker-compose-dev build
-docker compose -f docker-compose-dev up
+Start the project:
+```ruby
+bundle
+rails assets:precompile
+rspec                   # Сheck app's workability
+rails server            # DONE! Please check styles/js
 ```
 # silver-palm-tree
