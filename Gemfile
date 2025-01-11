@@ -33,6 +33,7 @@ group :development, :test do
   gem "rspec-rails", "~> 7.1.0"
   gem "faker", "~> 3.5"
   gem "factory_bot_rails"
+  gem "database_cleaner-active_record", "~> 2.2"
 end
 
 group :development do
@@ -43,7 +44,6 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem "database_cleaner-active_record", "~> 2.2"
 end
 
 # gem "pagy", "~> 9.3"
