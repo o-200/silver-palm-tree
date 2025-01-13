@@ -6,7 +6,7 @@
         <hr>
 
         <%= turbo_frame_tag "errors", class: "card-img-top", id: "errors" do %>
-          <%= render 'layouts/errors', resource: @session || nil %>
+          <%= render 'shared/errors', resource: @session || nil %>
         <% end %>
 
         <%= render 'form' %>

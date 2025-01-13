@@ -19,17 +19,17 @@
 
   <body>
     <div class="container">
-      <%= render "layouts/navbar" %>
+      <%= render "shared/navbar" %>
 
       <div id="flash" class="flash">
-        <%= render "layouts/flash" %>
+        <%= render "shared/flash" %>
       </div>
 
       <div class="mb-3">
         <%= yield %>
       </div>
 
-      <%= render "layouts/footer" %>
+      <%= render "shared/footer" %>
     </div>
   </body>
 </html>
