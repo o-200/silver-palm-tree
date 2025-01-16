@@ -6,12 +6,12 @@ class Podcast < ApplicationRecord
   validates :title, length: { minimum: 2 }
 
 
-  scope :random_by_day, ->() do
-    find Rails.cache.fetch('random_podcast', expires_in: 1.minutes) { random.id }
-  end
-
-  scope :random, ->() do
-    offset(rand(Podcast.count)).first
+  def self.random_by_day
+    podcast_count = count
+    return if podcast_count.zero?
+    new_random_podcast = offset(rand(podcast_count)).first
+    cached_random_podcast_id = Rails.cache.fetch('random_podcast_id', expires_in: 1.days) { new_random_podcast.id }
+    find(cached_random_podcast_id)
   end
 
 end
