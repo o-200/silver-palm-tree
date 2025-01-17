@@ -5,14 +5,32 @@ RSpec.feature "Home Page", type: :feature do
     10.times { FactoryBot.create(:podcast) }
   end
 
+  context "random podcast" do
+    # connect the cache to the tests only in this block
+    let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+    let(:cache) { Rails.cache }
+
+    before do
+      allow(Rails).to receive(:cache).and_return(memory_store)
+      Rails.cache.clear
+    end
+
+    scenario "random podcast by default" do
+      visit root_path
+      expect(Rails.cache.read("random_podcast_id")).to be_present
+      expect(page).to have_selector("#random_podcast")
+    end
+
+    scenario "random podcast forced" do
+      Rails.cache.write("random_podcast_id", 6, expires_in: 1.days)
+      visit root_path
+      expect(Rails.cache.read("random_podcast_id")).to eq(6)
+      expect(page).to have_selector("#random_podcast")
+    end
+  end
+
   context do
     before { visit root_path }
-
-    context 'random podcast' do
-      scenario "random podcast by default" do
-        expect(page).to have_selector("#random_podcast")
-      end
-    end
 
     context 'header or navbar' do
       scenario "title" do
