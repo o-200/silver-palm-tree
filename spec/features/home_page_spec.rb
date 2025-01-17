@@ -8,6 +8,12 @@ RSpec.feature "Home Page", type: :feature do
   context do
     before { visit root_path }
 
+    context 'random podcast' do
+      scenario "random podcast by default" do
+        expect(page).to have_selector("#random_podcast")
+      end
+    end
+
     context 'header or navbar' do
       scenario "title" do
         expect(page).to have_title("Podcaster")
