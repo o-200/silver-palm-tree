@@ -8,11 +8,12 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-DatabaseCleaner.clean_with(:truncation)
-puts 'All records were destroyed'
 
-10.times do |time|
-  FactoryBot.create(:podcast)
-end
+# DatabaseCleaner.clean_with(:truncation)
+# puts 'All records were destroyed'
 
-puts 'done!'
+# 10.times do |time|
+#   FactoryBot.create(:podcast)
+# end
+
+# puts 'done!'

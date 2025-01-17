@@ -26,6 +26,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
+gem "kamal", "~> 2.4"
+gem "dotenv", "~> 3.1"
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
