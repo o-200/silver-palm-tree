@@ -15,16 +15,19 @@ RSpec.feature "Home Page", type: :feature do
       Rails.cache.clear
     end
 
-    scenario "random podcast by default" do
+    scenario "by default" do
       visit root_path
-      expect(Rails.cache.read("random_podcast_id")).to be_present
+      random_podcast_id = Rails.cache.read("random_podcast_id")
+      expect(random_podcast_id).to be_present
+      expect(Podcast.where(id: random_podcast_id)).to exist
       expect(page).to have_selector("#random_podcast")
     end
 
-    scenario "random podcast forced" do
+    scenario "forced" do
       Rails.cache.write("random_podcast_id", 6, expires_in: 1.days)
       visit root_path
       expect(Rails.cache.read("random_podcast_id")).to eq(6)
+      expect(Podcast.where(id: 6)).to exist
       expect(page).to have_selector("#random_podcast")
     end
   end
