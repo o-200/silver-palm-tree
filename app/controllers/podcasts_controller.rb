@@ -23,7 +23,7 @@ class PodcastsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
-            turbo_stream.append("flash", partial: "layouts/flash", locals: { message: notice })
+            turbo_stream.append("flash", partial: "shared/flash", locals: { message: notice })
           ]
         end
         format.html { redirect_to @podcast, notice: notice }
@@ -31,7 +31,7 @@ class PodcastsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("form", partial: "podcasts/form", locals: { podcast: @podcast }),
-            turbo_stream.replace("alert", partial: "layouts/errors", locals: { resource: @podcast })
+            turbo_stream.replace("alert", partial: "shared/errors", locals: { resource: @podcast })
           ]
         end
         format.html { render :new }
@@ -52,7 +52,7 @@ class PodcastsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
-            turbo_stream.append("flash", partial: "layouts/flash", locals: { message: notice })
+            turbo_stream.append("flash", partial: "shared/flash", locals: { message: notice })
           ]
         end
         format.html { redirect_to @podcast, notice: "Your podcast was successfully updated." }
@@ -60,7 +60,7 @@ class PodcastsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("form", partial: "podcasts/form", locals: { podcast: @podcast }),
-            turbo_stream.replace("alert", partial: "layouts/errors", locals: { resource: @podcast })
+            turbo_stream.replace("alert", partial: "shared/errors", locals: { resource: @podcast })
           ]
         end
         format.html { render :new }
