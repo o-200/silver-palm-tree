@@ -14,4 +14,8 @@ class Podcast < ApplicationRecord
     end
     find_by(id: cached_random_podcast_id)
   end
+
+  def authored_by?(user)
+    self.user == user
+  end
 end
