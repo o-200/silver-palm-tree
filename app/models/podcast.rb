@@ -2,6 +2,8 @@ class Podcast < ApplicationRecord
   belongs_to :user
   has_one_attached :photo
   has_one_attached :audio
+  has_many :subscriptions
+  has_many :subscribers, through: :subscriptions, source: :user
 
   validates :title, presence: true
   validates :title, length: { minimum: 2 }
