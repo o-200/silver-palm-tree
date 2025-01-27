@@ -77,11 +77,12 @@ class PodcastsController < ApplicationController
   private
 
   def get_podcasts
-    # if current_user
-    #   return current_user.podcasts if params[:filter] == "my_podcasts"
-    # end
+    Podcast.all unless current_user
 
-    Podcast.all
+    case params[:filter]
+    when "my_podcasts"; current_user.podcasts
+    else;               Podcast.all
+    end
   end
 
   def set_podcast!
