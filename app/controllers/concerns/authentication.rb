@@ -13,7 +13,7 @@ module Authentication
   end
 
   private
-    def current_user
+    def current_user # added
       @current_user ||= User.find_by(id: cookies.signed[:user_id]) if cookies.signed[:user_id]
     end
 
@@ -46,12 +46,13 @@ module Authentication
       user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
         Current.session = session
         cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
-        cookies.signed.permanent[:user_id] = { value: user.id, httponly: true, same_site: :lax }
+        cookies.signed.permanent[:user_id] = { value: user.id, httponly: true, same_site: :lax } # added for current_user
       end
     end
 
     def terminate_session
       Current.session.destroy
       cookies.delete(:session_id)
+      cookies.delete(:user_id) # added for current_user
     end
 end
