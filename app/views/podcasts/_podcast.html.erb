@@ -33,10 +33,16 @@
     </div>
   </div>
 
-  <div class="control-buttons">
-    <div class="d-flex flex-column mb-3">
-      <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast), class: "btn btn-secondary mb-2" %>
-      <%= button_to "Удалить Podcast", podcast_path(@podcast), method: :delete, data: { confirm: "Вы уверены?" }, class: "btn btn-danger mb-2" %>
+  <% if @podcast.authored_by?(current_user) %>
+    <div class="control-buttons">
+      <div class="d-flex flex-column mb-3">
+        <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast),
+          class: "btn btn-secondary mb-2" %>
+        <%= button_to "Удалить Podcast", podcast_path(@podcast),
+          method: :delete,
+          data: { confirm: "Вы уверены?" },
+          class: "btn btn-danger mb-2" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </turbo_frame>
