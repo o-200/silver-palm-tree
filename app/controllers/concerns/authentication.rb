@@ -14,7 +14,7 @@ module Authentication
 
   private
     def current_user
-      @current_user ||= User.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+      @current_user ||= User.find_by(id: cookies.signed[:user_id]) if cookies.signed[:user_id]
     end
 
     def authenticated?
@@ -46,6 +46,7 @@ module Authentication
       user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
         Current.session = session
         cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
+        cookies.signed.permanent[:user_id] = { value: user.id, httponly: true, same_site: :lax }
       end
     end
 
