@@ -8,4 +8,12 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   validates :email_address, uniqueness: true
+
+  def subscribe_to_podcast(podcast)
+    subscriptions.create(podcast: podcast)
+  end
+  
+  def unsubscribe_from_podcast(podcast)
+    subscriptions.find_by(podcast: podcast)&.destroy
+  end
 end
