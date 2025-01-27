@@ -1,6 +1,7 @@
 class PodcastsController < ApplicationController
-  allow_unauthenticated_access
+  allow_unauthenticated_access only: %i[index show]
   before_action :set_podcast!, only: %i[show edit update destroy]
+  before_action :only_author_access, only: %i[edit update destroy]
 
   def index
     podcasts = get_podcasts
@@ -87,6 +88,12 @@ class PodcastsController < ApplicationController
 
   def set_podcast!
     @podcast = Podcast.find_by(id: params[:id])
+  end
+
+  def only_author_access
+    unless @podcast.authored_by?(current_user)
+      redirect_back fallback_location: root_path
+    end
   end
 
   def podcast_params
