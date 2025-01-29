@@ -81,8 +81,9 @@ class PodcastsController < ApplicationController
     Podcast.all unless current_user
 
     case params[:filter]
-    when "my_podcasts"; current_user.podcasts
-    else;               Podcast.all
+    when "my_podcasts";   current_user.podcasts
+    when "subscriptions"; current_user.subscribed_podcasts
+    else;                 Podcast.all
     end
   end
 
