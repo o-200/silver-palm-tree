@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   root "home#index"
-  resources :podcasts
+  resources :podcasts do
+    resources :subscriptions, only: [:create, :destroy]
+  end
 
   # auth
   resources :users, only: %i[new create]
