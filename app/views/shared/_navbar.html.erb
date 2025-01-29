@@ -35,10 +35,13 @@
               Menu
             </button>
             <ul class="dropdown-menu">
-              <li>
-                <%= link_to "My podcasts", podcasts_path(filter: 'my_podcasts'),
-                  class: "dropdown-item btn btn-outline-success",
-                  data: { turbo_frame: 'podcast_frame' } %>
+              <li><%= link_to "Profile", user_path(authenticated?[:user_id]),
+                    class: "dropdown-item btn btn-outline-success",
+                    data: { turbo_frame: 'podcast_frame' } %>
+              </li>
+              <li><%= link_to "My podcasts", podcasts_path(filter: 'my_podcasts'),
+                    class: "dropdown-item btn btn-outline-success",
+                    data: { turbo_frame: 'podcast_frame' } %>
               </li>
               <li><%= link_to "Add new podcast", new_podcast_path, class: 'dropdown-item btn btn-outline-success', data: { turbo_frame: 'podcast_frame' } %></li>
               <li><hr class="dropdown-divider"></li>

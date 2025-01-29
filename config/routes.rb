@@ -13,10 +13,11 @@ Rails.application.routes.draw do
   resources :podcasts
 
   # auth
-  resources :users, only: %i[new create]
-  get "/sign_up", to: "users#new", as: "register"
+  resources :users, only: %i[show new create]
 
   resource :session
+
+  get "/sign_up", to: "users#new", as: "register"
   get "/sign_in", to: "sessions#new", as: "login"
 
   resources :passwords, param: :token
