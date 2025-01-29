@@ -25,6 +25,19 @@
         <h6 class="card-subtitle mb-2 text-body-secondary fs-6"><%= @podcast.created_at %></h6>
         <p class="card-text fs-5 display-2"><%= @podcast.description %></p>
         <p class="card-text fs-5 display-2">User_id: <%= @podcast.user_id %></p>
+        <% if current_user && current_user.subscriptions.exists?(podcast: @podcast) %>
+          <%= button_to podcast_subscription_path(@podcast, 1),
+            method: :delete,
+            class: "btn btn-outline-success mb-2" do %>
+            Unsubscribe <i class="bi bi-hand-thumbs-up-fill"></i>
+          <% end %>
+        <% elsif current_user %>
+          <%= button_to podcast_subscriptions_path(@podcast),
+            method: :post,
+            class: "btn btn-outline-success mb-2" do %>
+            Subscribe <i class="bi bi-hand-thumbs-up"></i>
+          <% end %>
+        <% end %>   
       </div>
         <div class="card-footer bg-transparent border-success">
           <a href="#" class="card-link fs-6">Card link</a>
