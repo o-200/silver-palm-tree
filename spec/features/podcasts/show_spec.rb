@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature "Podcasts#show", type: :feature do
+  let(:user) { FactoryBot.create(:user) }
   let(:podcast) do
     FactoryBot.create(:podcast, title: Faker::Alphanumeric.alpha(number: 10),
-                                description: Faker::Markdown.emphasis)
+                                description: Faker::Markdown.emphasis,
+                                user: user)
   end
 
   before do
+    sign_in
     visit podcast_path(podcast)
   end
 
