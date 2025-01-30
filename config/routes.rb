@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root "home#index"
   resources :podcasts do
-    resources :subscriptions, only: [:create, :destroy]
+    resources :subscriptions, only: [ :create, :destroy ]
   end
 
   # auth

@@ -14,7 +14,7 @@ class SubscriptionsController < ApplicationController
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
             turbo_stream.append("flash", partial: "shared/flash", locals: { message: notice })
           ]
-        end       
+        end
       else
         format.turbo_stream do
           render turbo_stream: [
@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
             turbo_stream.append("flash", partial: "shared/flash", locals: { message: notice })
           ]
-        end       
+        end
       else
         format.turbo_stream do
           render turbo_stream: [
@@ -58,7 +58,7 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       notice = "You must log in or register to subscribe."
-      
+
       format.turbo_stream do
         flash[:notice] = notice
         render turbo_stream: turbo_stream.action(:redirect, login_path)
