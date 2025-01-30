@@ -31,7 +31,7 @@
             class: "btn btn-outline-success mb-2" do %>
             Unsubscribe <i class="bi bi-hand-thumbs-up-fill"></i>
           <% end %>
-        <% elsif current_user %>
+        <% else %>
           <%= button_to podcast_subscriptions_path(@podcast),
             method: :post,
             class: "btn btn-outline-success mb-2" do %>
