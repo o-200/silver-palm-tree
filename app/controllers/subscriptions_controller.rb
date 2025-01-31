@@ -8,7 +8,7 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       if subscription.save
-        flash[:notice] = "Your subscription was successfully created."
+        flash[:notice] = "You subscribed."
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       if subscription&.destroy
-        flash[:notice] = "Your subscription was successfully deleted."
+        flash[:notice] = "You unsubscribed."
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace("podcast_frame", partial: "podcasts/podcast", locals: { podcast: @podcast }),
