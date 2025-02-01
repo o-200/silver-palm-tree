@@ -53,20 +53,6 @@ class SubscriptionsController < ApplicationController
 
   private
 
-  def only_user_access
-    return if current_user
-
-    respond_to do |format|
-      notice = "You must log in or register to subscribe."
-
-      format.turbo_stream do
-        flash[:notice] = notice
-        render turbo_stream: turbo_stream.action(:redirect, login_path)
-      end
-      format.html { redirect_to login_path, notice: notice }
-    end
-  end
-
   def set_podcast!
     @podcast = Podcast.find_by(id: params[:podcast_id])
   end
