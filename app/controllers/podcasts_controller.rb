@@ -4,7 +4,7 @@ class PodcastsController < ApplicationController
   before_action :only_author_access, only: %i[edit update destroy]
 
   def index
-    podcasts = get_podcasts
+    podcasts = get_podcasts.includes(:user)
     render partial: "podcasts_list", locals: { podcasts: podcasts }
   end
 
