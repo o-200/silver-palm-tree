@@ -1,6 +1,9 @@
 class Podcast < ApplicationRecord
+  belongs_to :user
   has_one_attached :photo
   has_one_attached :audio
+  has_many :subscriptions
+  has_many :subscribers, through: :subscriptions, source: :user
 
   validates :title, presence: true
   validates :title, length: { minimum: 2 }
@@ -12,5 +15,9 @@ class Podcast < ApplicationRecord
       offset(rand(Podcast.count)).first.id
     end
     find_by(id: cached_random_podcast_id)
+  end
+
+  def authored_by?(user)
+    self.user == user
   end
 end

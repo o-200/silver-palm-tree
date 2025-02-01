@@ -24,6 +24,22 @@
         <h5 class="card-title fs-1 display-1"><%= @podcast.title %></h5>
         <h6 class="card-subtitle mb-2 text-body-secondary fs-6"><%= @podcast.created_at %></h6>
         <p class="card-text fs-5 display-2"><%= @podcast.description %></p>
+        <p class="card-text fs-5 display-2">Author: <%= @podcast.user.email_address %></p>
+        <% if current_user && current_user.subscriptions.exists?(podcast: @podcast) %>
+          <%= button_to podcast_subscription_path(@podcast, 1),
+            method: :delete,
+            id: 'unsubscribe_button',
+            class: "btn btn-success mb-2" do %>
+            <i class="bi bi-check2"></i>
+          <% end %>
+        <% else %>
+          <%= button_to podcast_subscriptions_path(@podcast),
+            method: :post,
+            id: 'subscribe_button',
+            class: "btn btn-primary mb-2" do %>
+            <i class="bi bi-hand-thumbs-up-fill"></i>
+          <% end %>
+        <% end %>   
       </div>
         <div class="card-footer bg-transparent border-success">
           <a href="#" class="card-link fs-6">Card link</a>
@@ -32,10 +48,16 @@
     </div>
   </div>
 
-  <div class="control-buttons">
-    <div class="d-flex flex-column mb-3">
-      <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast), class: "btn btn-secondary mb-2" %>
-      <%= button_to "Удалить Podcast", podcast_path(@podcast), method: :delete, data: { confirm: "Вы уверены?" }, class: "btn btn-danger mb-2" %>
+  <% if @podcast.authored_by?(current_user) %>
+    <div class="control-buttons">
+      <div class="d-flex flex-column mb-3">
+        <%= link_to "Редактировать Podcast", edit_podcast_path(@podcast),
+          class: "btn btn-secondary mb-2" %>
+        <%= button_to "Удалить Podcast", podcast_path(@podcast),
+          method: :delete,
+          data: { confirm: "Вы уверены?" },
+          class: "btn btn-danger mb-2" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </turbo_frame>

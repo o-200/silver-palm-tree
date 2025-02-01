@@ -1,13 +1,14 @@
 class PodcastsController < ApplicationController
-  allow_unauthenticated_access
+  allow_unauthenticated_access only: %i[index show]
+  before_action :set_podcast!, only: %i[show edit update destroy]
+  before_action :only_author_access, only: %i[edit update destroy]
 
   def index
-    podcasts = get_podcasts
+    podcasts = get_podcasts.includes(:user)
     render partial: "podcasts_list", locals: { podcasts: podcasts }
   end
 
   def show
-    @podcast = Podcast.find_by(id: params[:id])
   end
 
   def new
@@ -15,7 +16,7 @@ class PodcastsController < ApplicationController
   end
 
   def create
-    @podcast = Podcast.build(podcast_params)
+    @podcast = current_user.podcasts.build(podcast_params)
 
     respond_to do |format|
       if @podcast.save
@@ -40,12 +41,9 @@ class PodcastsController < ApplicationController
   end
 
   def edit
-    @podcast = Podcast.find_by(id: params[:id])
   end
 
   def update
-    @podcast = Podcast.find_by(id: params[:id])
-
     respond_to do |format|
       if @podcast.update(podcast_params)
         flash[:notice] = "Your podcast was successfully updated."
@@ -69,9 +67,7 @@ class PodcastsController < ApplicationController
   end
 
   def destroy
-    podcast = Podcast.find_by(id: params[:id])
-
-    if current_user.podcast.destroy
+    if @podcast.destroy
       redirect_to root_path
     else
       flash[:error] = @podcast.errors.full_messages
@@ -82,11 +78,23 @@ class PodcastsController < ApplicationController
   private
 
   def get_podcasts
-    # if current_user
-    #   return current_user.podcasts if params[:filter] == "my_podcasts"
-    # end
+    Podcast.all unless current_user
 
-    Podcast.all
+    case params[:filter]
+    when "my_podcasts";   current_user.podcasts
+    when "subscriptions"; current_user.subscribed_podcasts
+    else;                 Podcast.all
+    end
+  end
+
+  def set_podcast!
+    @podcast = Podcast.find_by(id: params[:id])
+  end
+
+  def only_author_access
+    unless @podcast.authored_by?(current_user)
+      redirect_back fallback_location: root_path
+    end
   end
 
   def podcast_params
