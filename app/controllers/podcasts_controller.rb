@@ -8,6 +8,22 @@ class PodcastsController < ApplicationController
     render partial: "podcasts_list", locals: { podcasts: podcasts }
   end
 
+  def search
+    if params[:title_search].present?
+      @podcasts = Podcast.where('title LIKE ?', "%#{params[:title_search]}%")
+    else
+      @podcasts = []
+    end
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("search_results", 
+                              partial: "podcasts/search_results", 
+                              locals: { matched_podcasts: @podcasts })
+      end
+    end
+  end
+
   def show
   end
 
