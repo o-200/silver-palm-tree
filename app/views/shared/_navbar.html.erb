@@ -30,7 +30,7 @@
 
       <% if authenticated? %>
         <div class="row justify-content-evenly">
-          <div class="col-3 dropdown">
+          <div class="col-auto dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Menu
             </button>
@@ -62,6 +62,14 @@
                 class: 'dropdown-item btn btn-outline-danger',
                 method: :delete %>
               </li>
+            </ul>
+          </div>
+          <div class="col-auto dropdown">
+            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-search"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <%= render "podcasts/search_form" %>
             </ul>
           </div>
         </div>
