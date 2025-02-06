@@ -1,0 +1,10 @@
+<li>
+  <a class="dropdown-item disabled">There are <%= matched_podcasts.count %> matching podcasts</a>
+</li>
+<li><hr class="dropdown-divider"></li>
+<% matched_podcasts.each do |podcast| %>
+  <li>
+    <%= link_to highlight(podcast.title, params[:title_search]), podcast,
+      class: 'dropdown-item btn btn-outline-success' %>
+  </li>
+<% end %>
