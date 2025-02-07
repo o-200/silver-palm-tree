@@ -1,5 +1,5 @@
 class PodcastsController < ApplicationController
-  allow_unauthenticated_access only: %i[index show]
+  allow_unauthenticated_access only: %i[index search show]
   before_action :set_podcast!, only: %i[show edit update destroy]
   before_action :only_author_access, only: %i[edit update destroy]
 
