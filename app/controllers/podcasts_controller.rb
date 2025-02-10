@@ -1,27 +1,11 @@
 class PodcastsController < ApplicationController
-  allow_unauthenticated_access only: %i[index search show]
+  allow_unauthenticated_access only: %i[index show]
   before_action :set_podcast!, only: %i[show edit update destroy]
   before_action :only_author_access, only: %i[edit update destroy]
 
   def index
     podcasts = get_podcasts.includes(:user)
     render partial: "podcasts_list", locals: { podcasts: podcasts }
-  end
-
-  def search
-    if params[:title_search].present?
-      @podcasts = Podcast.where("title LIKE ?", "%#{params[:title_search]}%")
-    else
-      @podcasts = []
-    end
-
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.update("search_results",
-                              partial: "podcasts/search_results",
-                              locals: { matched_podcasts: @podcasts })
-      end
-    end
   end
 
   def show
