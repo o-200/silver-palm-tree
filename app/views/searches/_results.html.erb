@@ -1,0 +1,10 @@
+<li>
+  <a class="dropdown-item disabled">There are <%= matched_entities.count %> results</a>
+</li>
+<li><hr class="dropdown-divider"></li>
+<% matched_entities.each do |entity| %>
+  <li class="search-title-result">
+    <%= link_to highlight(entity.title, params[:title_search]), entity,
+      class: 'dropdown-item btn btn-outline-success' %>
+  </li>
+<% end %>
