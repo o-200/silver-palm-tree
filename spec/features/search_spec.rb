@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Podcasts#search", type: :feature, js: true do
+RSpec.feature "Searches#search", type: :feature, js: true do
   before do
     FactoryBot.create(:podcast, title: "Good Podcast", description: Faker::Markdown.emphasis)
     FactoryBot.create(:podcast, title: "Bad Podcast", description: Faker::Markdown.emphasis)
