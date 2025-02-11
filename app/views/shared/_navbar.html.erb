@@ -30,7 +30,7 @@
 
       <% if authenticated? %>
         <div class="row justify-content-evenly">
-          <div class="col-3 dropdown">
+          <div class="col-auto dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Menu
             </button>
@@ -64,6 +64,14 @@
               </li>
             </ul>
           </div>
+          <div class="col-auto dropdown">
+            <button class="btn btn-dark dropdown-toggle search-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-search"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <%= render "searches/form", entity_name: "podcast" %>
+            </ul>
+          </div>
         </div>
       <% else %>
         <div class="authentication">
@@ -79,6 +87,14 @@
                   class: 'btn btn-outline-primary',
                   data: { turbo_frame: 'podcast_frame' }
               %>
+            </div>
+            <div class="col-auto dropdown">
+              <button class="btn btn-dark dropdown-toggle search-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-search"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <%= render "searches/form", entity_name: "podcast" %>
+              </ul>
             </div>
           </div>
         </div>

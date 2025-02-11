@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :subscriptions, only: [ :create, :destroy ]
   end
 
+  post "/searches", to: "searches#search", as: "search"
+
   # auth
   resources :users, only: %i[new create]
   get "/sign_up", to: "users#new", as: "register"
