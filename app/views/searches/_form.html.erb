@@ -1,12 +1,12 @@
-<li>
-  <%= form_with url: search_path, method: :post,
-    class: 'dropdown-item',
-    data: {controller: "debounce", debounce_target: "form" } do |form| %>
+<div class="dropdown">
+  <%= form_with url: search_path,
+                method: :post,
+                class: 'dropdown-item',
+                data: { controller: "debounce", debounce_target: "form" } do |form| %>
     <%= form.search_field :title_search,
       class: "form-control",
-      data: { action: "input->debounce#search" } %>
+      data: { action: "input->debounce#search" }%>
     <%= form.hidden_field :entity_name, value: entity_name %>
   <% end %>
-</li>
 
-<div id="search_results"></div>
+</div>

@@ -1,10 +1,13 @@
-<li>
-  <a class="dropdown-item disabled">There are <%= matched_entities.count %> results</a>
-</li>
-<li><hr class="dropdown-divider"></li>
-<% matched_entities.each do |entity| %>
-  <li class="search-title-result">
-    <%= link_to highlight(entity.title, params[:title_search]), entity,
-      class: 'dropdown-item btn btn-outline-success' %>
-  </li>
-<% end %>
+<ul class="list-group list-unstyled">
+  <div class="list-group-item">
+    <a class="dropdown-item disabled">There are <%= matched_entities.count %> results</a>
+  </div>
+  <div class="list-group-item list-group list-group-flush">
+    <% matched_entities.each do |entity| %>
+      <li class="search-title-result mb-2 list-group-item">
+        <%= link_to highlight(entity.title, params[:title_search]), entity,
+                    class: 'dropdown-item btn' %>
+      </li>
+    <% end %>
+  </div>
+</ul>

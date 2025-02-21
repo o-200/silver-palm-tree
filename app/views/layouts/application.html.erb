@@ -20,10 +20,9 @@
   <body>
     <div class="container">
       <%= render "shared/navbar" %>
+      <div class='mb-3' id="search_results"></div>
 
-      <div id="flash" class="flash">
-        <%= render "shared/flash" %>
-      </div>
+      <%= render "shared/flash" %>
 
       <div class="mb-3">
         <%= yield %>
