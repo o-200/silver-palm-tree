@@ -10,10 +10,19 @@ class SearchesController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.update("search_results",
-                              partial: "searches/results",
-                              locals: { matched_entities: @matched_entities })
+      if @matched_entities.any?
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.update("search_results",
+                                  partial: "searches/results",
+                                  locals: { matched_entities: @matched_entities })
+          end
+      else
+        flash.now[:notice] = "No results found"
+
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("flash", partial: "shared/flash", locals: { message: flash.now[:notice] })
+        end
+        format.html { redirect_to login_path, notice: notice }
       end
     end
   end

@@ -25,6 +25,9 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bundle exec bin/brakeman --no-pager
 
+      - name: Scan for security JavaScript vulnerabilities in dependencies
+        run: bin/importmap audit
+
       - name: Lint code for consistent style
         run: bundle exec bin/rubocop
 
@@ -43,21 +46,3 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
-
-  scan_js:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-
-      - name: Install dependencies
-        run: bundle install --jobs 4 --retry 3
-
-      - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
