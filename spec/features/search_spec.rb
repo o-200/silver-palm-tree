@@ -5,7 +5,7 @@ RSpec.feature "Searches#search", type: :feature, js: true do
     FactoryBot.create(:podcast, title: "Good Podcast", description: Faker::Markdown.emphasis)
     FactoryBot.create(:podcast, title: "Bad Podcast", description: Faker::Markdown.emphasis)
     FactoryBot.create(:podcast, title: "Bad or Good or Some Podcast", description: Faker::Markdown.emphasis)
-    visit root_path
+    visit login_path # page which doesnt have any content related to podcasts
   end
 
   scenario "search-form is exists" do
