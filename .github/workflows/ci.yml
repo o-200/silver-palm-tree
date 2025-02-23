@@ -18,13 +18,31 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
 
-      - name: Install error_highlight
-        run: gem install error_highlight -v '0.7.0'
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bundle exec bin/brakeman --no-pager
+
+      - name: Lint code for consistent style
+        run: bundle exec bin/rubocop
+
+      - name: precompile assets
+        run: bundle exec rails assets:precompile
+
+      - name: Run rspec
+        env:
+          RAILS_ENV: test
+        run: bundle exec rspec
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore
 
   scan_js:
     runs-on: ubuntu-latest
@@ -37,76 +55,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
 
-      - name: Install error_highlight
-        run: gem install error_highlight -v '0.7.0'
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Install error_highlight
-        run: gem install error_highlight -v '0.7.0'
-
-      - name: Lint code for consistent style
-        run: bin/rubocop -f github
-
-  test:
-    runs-on: ubuntu-latest
-
-    # services:
-    #  redis:
-    #    image: redis
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
-    steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips sqlite3
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Install error_highlight
-        run: gem install error_highlight -v '0.7.0'
-
-      # - name: Run tests
-      #   env:
-      #     RAILS_ENV: test
-      #     # REDIS_URL: redis://localhost:6379/0
-      #   run: bin/rails db:test:prepare test test:system
-
-      - name: precompile assets
-        run: bundle exec rails assets:precompile
-
-      - name: Run rspec
-        env:
-          RAILS_ENV: test
-          # REDIS_URL: redis://localhost:6379/0
-        run: bundle exec rspec
-
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
